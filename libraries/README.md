@@ -9,15 +9,18 @@ This library has served as a base for some (much more full-featured and advanced
 
 Copyright belongs to Petr Mrázek, unless explicitly stated otherwise in the source files. Available under the Apache 2.0 license.
 
+## gamemode
+
+A performance optimization daemon.
+
+See [github repo](https://github.com/FeralInteractive/gamemode).
+
+BSD licensed
+
 ## hoedown
 Hoedown is a revived fork of Sundown, the Markdown parser based on the original code of the Upskirt library by Natacha Porté.
 
 See [github repo](https://github.com/hoedown/hoedown).
-
-## iconfix
-This was originally part of the razor-qt project and the Qt toolkit, respecitvely. Its sole purpose is to reimplement Qt's icon loading logic to prevent it from using any platform plugins that could break icon loading.
-
-Licensed under LGPL 2.1
 
 ## javacheck
 Simple Java tool that prints the JVM details - version and platform bitness.
@@ -125,7 +128,7 @@ cp /home/peterix/minecraft/FTB/versions/1.7.10/1.7.10.jar
 launcher onesix
 ```
 
-Available under the Apache 2.0 license.
+Available under `GPL-3.0-only` (with classpath exception), sublicensed from its original `Apache-2.0` codebase
 
 ## libnbtplusplus
 libnbt++ is a free C++ library for Minecraft's file format Named Binary Tag (NBT). It can read and write compressed and uncompressed NBT files and provides a code interface for working with NBT data.
@@ -141,13 +144,11 @@ BSD licensed, derived from [QtSingleApplication](https://github.com/qtproject/qt
 
 Changes are made to make the code more generic and useful in less usual conditions.
 
-## optional-bare
+## murmur2
 
-A simple single-file header-only version of a C++17-like optional for default-constructible, copyable types, for C++98 and later.
+Canonical implementation of the murmur2 hash, taken from [SMHasher](https://github.com/aappleby/smhasher).
 
-Imported from: https://github.com/martinmoene/optional-bare/commit/0bb1d183bcee1e854c4ea196b533252c51f98b81
-
-Boost Software License - Version 1.0
+Public domain (the author disclaimed the copyright).
 
 ## quazip
 
@@ -179,3 +180,4 @@ Licenced under the MIT licence.
 Tiny implementation of LZMA2 de/compression. This format is only used by Forge to save bandwidth.
 
 Public domain.
+

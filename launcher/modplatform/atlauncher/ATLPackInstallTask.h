@@ -46,7 +46,7 @@
 #include "minecraft/PackProfile.h"
 #include "meta/Version.h"
 
-#include <nonstd/optional>
+#include <optional>
 
 namespace ATLauncher {
 
@@ -75,7 +75,7 @@ class PackInstallTask : public InstanceTask
 Q_OBJECT
 
 public:
-    explicit PackInstallTask(UserInteractionSupport *support, QString pack, QString version);
+    explicit PackInstallTask(UserInteractionSupport *support, QString packName, QString version);
     virtual ~PackInstallTask(){}
 
     bool canAbort() const override { return true; }
@@ -117,7 +117,8 @@ private:
     NetJob::Ptr jobPtr;
     QByteArray response;
 
-    QString m_pack;
+    QString m_pack_name;
+    QString m_pack_safe_name;
     QString m_version_name;
     PackVersion m_version;
 
@@ -130,8 +131,8 @@ private:
     Meta::VersionPtr minecraftVersion;
     QMap<QString, Meta::VersionPtr> componentsToInstall;
 
-    QFuture<nonstd::optional<QStringList>> m_extractFuture;
-    QFutureWatcher<nonstd::optional<QStringList>> m_extractFutureWatcher;
+    QFuture<std::optional<QStringList>> m_extractFuture;
+    QFutureWatcher<std::optional<QStringList>> m_extractFutureWatcher;
 
     QFuture<bool> m_modExtractFuture;
     QFutureWatcher<bool> m_modExtractFutureWatcher;

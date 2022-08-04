@@ -1,4 +1,37 @@
-// Licensed under the Apache-2.0 license. See README.md for details.
+// SPDX-License-Identifier: GPL-3.0-only
+/*
+ *  PolyMC - Minecraft Launcher
+ *  Copyright (C) 2022 Sefa Eyeoglu <contact@scrumplex.net>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, version 3.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * This file incorporates work covered by the following copyright and
+ * permission notice:
+ *
+ *      Copyright 2013-2021 MultiMC Contributors
+ *
+ *      Licensed under the Apache License, Version 2.0 (the "License");
+ *      you may not use this file except in compliance with the License.
+ *      You may obtain a copy of the License at
+ *
+ *          http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *      Unless required by applicable law or agreed to in writing, software
+ *      distributed under the License is distributed on an "AS IS" BASIS,
+ *      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *      See the License for the specific language governing permissions and
+ *      limitations under the License.
+ */
 
 #pragma once
 
@@ -8,29 +41,27 @@
 #include <QDir>
 #include <QFlags>
 
-namespace FS
-{
+namespace FS {
 
-class FileSystemException : public ::Exception
-{
-public:
-    FileSystemException(const QString &message) : Exception(message) {}
+class FileSystemException : public ::Exception {
+   public:
+    FileSystemException(const QString& message) : Exception(message) {}
 };
 
 /**
  * write data to a file safely
  */
-void write(const QString &filename, const QByteArray &data);
+void write(const QString& filename, const QByteArray& data);
 
 /**
  * read data from a file safely\
  */
-QByteArray read(const QString &filename);
+QByteArray read(const QString& filename);
 
 /**
  * Update the last changed timestamp of an existing file
  */
-bool updateTimestamp(const QString & filename);
+bool updateTimestamp(const QString& filename);
 
 /**
  * Creates all the folders in a path for the specified path
@@ -44,35 +75,31 @@ bool ensureFilePathExists(QString filenamepath);
  */
 bool ensureFolderPathExists(QString filenamepath);
 
-class copy
-{
-public:
-    copy(const QString & src, const QString & dst)
+class copy {
+   public:
+    copy(const QString& src, const QString& dst)
     {
-        m_src = src;
-        m_dst = dst;
+        m_src.setPath(src);
+        m_dst.setPath(dst);
     }
-    copy & followSymlinks(const bool follow)
+    copy& followSymlinks(const bool follow)
     {
         m_followSymlinks = follow;
         return *this;
     }
-    copy & blacklist(const IPathMatcher * filter)
+    copy& blacklist(const IPathMatcher* filter)
     {
         m_blacklist = filter;
         return *this;
     }
-    bool operator()()
-    {
-        return operator()(QString());
-    }
+    bool operator()() { return operator()(QString()); }
 
-private:
-    bool operator()(const QString &offset);
+   private:
+    bool operator()(const QString& offset);
 
-private:
+   private:
     bool m_followSymlinks = true;
-    const IPathMatcher * m_blacklist = nullptr;
+    const IPathMatcher* m_blacklist = nullptr;
     QDir m_src;
     QDir m_dst;
 };
@@ -82,9 +109,14 @@ private:
  */
 bool deletePath(QString path);
 
-QString PathCombine(const QString &path1, const QString &path2);
-QString PathCombine(const QString &path1, const QString &path2, const QString &path3);
-QString PathCombine(const QString &path1, const QString &path2, const QString &path3, const QString &path4);
+/**
+ * Trash a folder / file
+ */
+bool trash(QString path, QString *pathInTrash);
+
+QString PathCombine(const QString& path1, const QString& path2);
+QString PathCombine(const QString& path1, const QString& path2, const QString& path3);
+QString PathCombine(const QString& path1, const QString& path2, const QString& path3, const QString& path4);
 
 QString AbsolutePath(QString path);
 
@@ -120,8 +152,7 @@ bool checkProblemticPathJava(QDir folder);
 // Get the Directory representing the User's Desktop
 QString getDesktopDir();
 
-// Create a shortcut at *location*, pointing to *dest* called with the arguments *args*
-// call it *name* and assign it the icon *icon*
-// return true if operation succeeded
-bool createShortCut(QString location, QString dest, QStringList args, QString name, QString iconLocation);
+// Overrides one folder with the contents of another, preserving items exclusive to the first folder
+// Equivalent to doing QDir::rename, but allowing for overrides
+bool overrideFolder(QString overwritten_path, QString override_path);
 }
